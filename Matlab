@@ -1,0 +1,37 @@
+% Define parameters
+Fs = 1000;       % Sampling frequency (samples per second)
+T = 1/Fs;        % Sampling period (seconds per sample)
+L = 1000;        % Length of the signal
+t = (-L/2:L/2-1)*T;  % Time vector, centered around zero
+
+% Define the Gaussian function
+x = exp(-t.^2);
+
+% Compute the Fourier transform
+Y = fft(x);
+
+% Shift zero frequency component to the center of the spectrum
+Y_shifted = fftshift(Y);
+
+% Compute the magnitude of the Fourier transform
+P2 = abs(Y_shifted/L);
+
+% Define the frequency axis
+f = Fs*(-L/2:(L/2-1))/L;
+
+% Plot the original Gaussian function
+subplot(2,1,1);
+plot(t, x);
+title('Gaussian Function in Time Domain');
+xlabel('Time (s)');
+ylabel('Amplitude');
+
+% Plot the Fourier transform
+subplot(2,1,2);
+plot(f, P2);
+title('Magnitude of Fourier Transform (Frequency Domain)');
+xlabel('Frequency (Hz)');
+ylabel('|P(f)|');
+
+
+
